@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKER_IMAGE = "arghyanil/hello-devops"
         EC2_HOST = "13.203.228.220"
-        EC2_USER = "ubuntu"
     }
 
     stages {
@@ -21,27 +20,30 @@ pipeline {
         }
 
         stage('Push Docker Image') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-creds',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-            powershell '''
-                $env:DOCKER_PASS | docker login -u $env:DOCKER_USER --password-stdin
-                docker push $env:DOCKER_IMAGE`:latest
-            '''
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    powershell '''
+                        $env:DOCKER_PASS | docker login -u $env:DOCKER_USER --password-stdin
+                        docker push $env:DOCKER_IMAGE`:latest
+                    '''
+                }
+            }
         }
-    }
-}
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh-key']) {
-                    bat """
-                    ssh -o StrictHostKeyChecking=no %EC2_USER%@%EC2_HOST% ^
-                    "docker pull %DOCKER_IMAGE%:latest && docker stop hello-devops-container || true && docker rm hello-devops-container || true && docker run -d -p 80:80 --name hello-devops-container %DOCKER_IMAGE%:latest"
-                    """
+                withCredentials([sshUserPrivateKey(
+                    credentialsId: 'ec2-ssh-key',
+                    keyFileVariable: 'SSH_KEY',
+                    usernameVariable: 'SSH_USER'
+                )]) {
+                    powershell '''
+                        ssh -i $env:SSH_KEY -o StrictHostKeyChecking=no $env:SSH_USER@$env:EC2_HOST "docker pull $env:DOCKER_IMAGE`:latest && docker stop hello-devops-container || true && docker rm hello-devops-container || true && docker run -d -p 80:80 --name hello-devops-container $env:DOCKER_IMAGE`:latest"
+                    '''
                 }
             }
         }
