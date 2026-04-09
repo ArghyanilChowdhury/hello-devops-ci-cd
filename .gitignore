@@ -1,0 +1,20 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# SSH keys
+*.pem
+terraform/devops-local-key
+terraform/devops-local-key.pub
+
+# OS/editor
+.vscode/
+.DS_Store
+Thumbs.db
