@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello DevOps</title>
+  <meta charset="UTF-8">
+  <title>DevOps Quiz</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       background: #f4f7fb;
-      margin: 0;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
-    .card {
+    .quiz-box {
       background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 500px;
+      padding: 25px;
+      border-radius: 10px;
+      width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     }
-    h1 { color: #1f4e79; }
-    p { font-size: 18px; }
-    .version {
-      margin-top: 15px;
-      color: green;
-      font-weight: bold;
+    h2 {
+      color: #1f4e79;
+    }
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #1f4e79;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>DevOps CI/CD Lab Project</h1>
-    <p>Name: Prerna Kumari</p>
-    <p>Subject: CI/CD Lab</p>
-    <p>This website is deployed.</p>
-    <div class="version">Version: v6</div>
-  </div>
+
+<div class="quiz-box">
+  <h2>DevOps Quiz</h2>
+
+  <p id="question">What does CI stand for?</p>
+
+  <button onclick="checkAnswer('a')">Continuous Integration</button>
+  <button onclick="checkAnswer('b')">Code Inspection</button>
+  <button onclick="checkAnswer('c')">Central Infrastructure</button>
+
+  <p id="result"></p>
+</div>
+
+<script>
+function checkAnswer(answer) {
+  if (answer === 'a') {
+    document.getElementById('result').innerText = "Correct!";
+  } else {
+    document.getElementById('result').innerText = "Wrong Answer!";
+  }
+}
+</script>
+
 </body>
 </html>
