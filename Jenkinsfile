@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "arghyanil/hello-devops"
-        EC2_HOST = "13.203.228.220"
-        EC2_USER = "ubuntu"
-        SSH_KEY_PATH = "C:/Users/arghy/Desktop/hello-devops-ci-cd/terraform/devops-local-key"
+    DOCKER_IMAGE = "arghyanil/hello-devops"
+    EC2_HOST = "65.2.79.85"
+    EC2_USER = "ubuntu"
+    SSH_KEY_PATH = "C:/Users/arghy/Desktop/hello-devops-ci-cd/terraform/devops-local-key"
     }
 
     stages {
