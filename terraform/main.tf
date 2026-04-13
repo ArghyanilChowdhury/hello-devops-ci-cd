@@ -54,13 +54,13 @@ resource "aws_instance" "devops_server" {
   vpc_security_group_ids = [aws_security_group.devops_sg.id]
 
   user_data = <<-EOF
-            #!/bin/bash
-            apt update -y
-            apt install -y docker.io
-            systemctl enable docker
-            systemctl start docker
-            usermod -aG docker ubuntu
-            EOF
+              #!/bin/bash
+              apt update -y
+              apt install -y docker.io
+              systemctl enable docker
+              systemctl start docker
+              usermod -aG docker ubuntu
+              EOF
 
   tags = {
     Name = "devops-mini-project-server"
